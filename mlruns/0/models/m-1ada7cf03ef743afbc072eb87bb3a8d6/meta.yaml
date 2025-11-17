@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Valentina%20Molina/Documents/repositorios/Proyecto_II/mlruns/0/models/m-1ada7cf03ef743afbc072eb87bb3a8d6/artifacts
+creation_timestamp: 1763320563020
+experiment_id: '0'
+last_updated_timestamp: 1763320580474
+model_id: m-1ada7cf03ef743afbc072eb87bb3a8d6
+model_type: null
+name: modelo_riesgos
+source_run_id: 74a8f40c25c844f5b132a06bb712f9a8
+status: 2
+status_message: null
