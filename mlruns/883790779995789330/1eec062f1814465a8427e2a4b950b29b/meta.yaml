@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/1eec062f1814465a8427e2a4b950b29b/artifacts
+end_time: 1763393458659
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: 1eec062f1814465a8427e2a4b950b29b
+run_name: adaptable-zebra-640
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393458510
+status: 3
+tags: []
+user_id: crisa

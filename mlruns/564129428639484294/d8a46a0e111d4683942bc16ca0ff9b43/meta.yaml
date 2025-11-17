@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/564129428639484294/d8a46a0e111d4683942bc16ca0ff9b43/artifacts
+end_time: 1763393388672
+entry_point_name: ''
+experiment_id: '564129428639484294'
+lifecycle_stage: active
+run_id: d8a46a0e111d4683942bc16ca0ff9b43
+run_name: XGBoost_v2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393375669
+status: 3
+tags: []
+user_id: crisa

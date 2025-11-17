@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/564129428639484294/models/m-94e45d51b5244febb1bf67305022927c/artifacts
+creation_timestamp: 1763393343553
+experiment_id: '564129428639484294'
+last_updated_timestamp: 1763393368503
+model_id: m-94e45d51b5244febb1bf67305022927c
+model_type: null
+name: RandomForest_v2
+source_run_id: a7331616e19e448d8780a508966137f6
+status: 2
+status_message: null

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/b2fbccbc75c8484eb8870547253a3fb0/artifacts
+end_time: 1763393473033
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: b2fbccbc75c8484eb8870547253a3fb0
+run_name: unequaled-grouse-706
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393472939
+status: 3
+tags: []
+user_id: crisa

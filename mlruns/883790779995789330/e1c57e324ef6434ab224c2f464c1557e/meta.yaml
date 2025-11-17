@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/e1c57e324ef6434ab224c2f464c1557e/artifacts
+end_time: 1763393484262
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: e1c57e324ef6434ab224c2f464c1557e
+run_name: nimble-stoat-903
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393484165
+status: 3
+tags: []
+user_id: crisa

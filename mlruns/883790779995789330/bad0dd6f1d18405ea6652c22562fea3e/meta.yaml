@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/bad0dd6f1d18405ea6652c22562fea3e/artifacts
+end_time: 1763393461819
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: bad0dd6f1d18405ea6652c22562fea3e
+run_name: respected-wasp-261
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393461672
+status: 3
+tags: []
+user_id: crisa

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/1bd9e53c320f4d6785e02d245d7fd1ef/artifacts
+end_time: 1763393469312
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: 1bd9e53c320f4d6785e02d245d7fd1ef
+run_name: blushing-toad-825
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393469174
+status: 3
+tags: []
+user_id: crisa

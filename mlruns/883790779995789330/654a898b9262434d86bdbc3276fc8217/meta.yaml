@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/654a898b9262434d86bdbc3276fc8217/artifacts
+end_time: 1763393492710
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: 654a898b9262434d86bdbc3276fc8217
+run_name: adaptable-lark-172
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393492528
+status: 3
+tags: []
+user_id: crisa

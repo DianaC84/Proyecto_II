@@ -111,8 +111,8 @@ def save_processed(df: pd.DataFrame, out_dir: Union[str, Path]) -> None:
 
 if __name__ == "__main__":
     # Ejecución simple del ETL (ajusta rutas según entorno)
-    RAW_PATH = Path(r"C:\Users\Valentina Molina\Documents\repositorios\Proyecto_II\datos\Bas_de_datos_riesgos_original_30.09.2025.xlsx")
-    OUT_DIR = Path(r"C:\Users\Valentina Molina\Documents\repositorios\Proyecto_II\datos")
+    RAW_PATH = Path(r"C:\\Users\\crisa\\Documents\\repositorios\\Proyecto_II\\datos\\Bas_de_datos_riesgos_original_30.09.2025.xlsx")
+    OUT_DIR = Path(r"C:\\Users\\crisa\\Documents\\repositorios\\Proyecto_II\\datos")
     df_raw = load_raw(RAW_PATH)
     df_clean = clean_data(df_raw)
     save_processed(df_clean, OUT_DIR)

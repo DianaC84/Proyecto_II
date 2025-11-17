@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/883790779995789330/9f0fe55274e04b19b8c8ecc3f76ef102/artifacts
+end_time: 1763393485760
+entry_point_name: ''
+experiment_id: '883790779995789330'
+lifecycle_stage: active
+run_id: 9f0fe55274e04b19b8c8ecc3f76ef102
+run_name: abrasive-vole-717
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763393485661
+status: 3
+tags: []
+user_id: crisa

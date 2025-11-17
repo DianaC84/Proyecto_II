@@ -1,35 +1,21 @@
 import mlflow
-from mlflow.tracking import MlflowClient
+import mlflow.sklearn
+import logging
+from pathlib import Path
 
-def register_model(run_id, model_name, artifact_path):
-    client = MlflowClient()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+def register_model(model_uri, model_name, stage=None):
     
-    # Crear modelo registrado si no existe
-    try:
-        client.create_registered_model(model_name)
-        print(f"Modelo registrado creado: {model_name}")
-    except Exception as e:
-        print(f"El modelo ya existe: {model_name}")
+    logger.info(f"Registrando modelo: {model_name}")
+    logger.info(f"MLflow model_uri: {model_uri}")
 
-    # Crear una nueva versión del modelo
-    model_version = client.create_model_version(
-        name=model_name,
-        source=f"runs:/{run_id}/{artifact_path}",
-        run_id=run_id
-    )
-    print(f"Versión de modelo creada: {model_version.version}")
+    # Registrar el modelo
+    result = mlflow.register_model(model_uri=model_uri, name=model_name)
 
-if __name__ == "__main__":
-    # --- PARA MLflow ---
-    # run_id = "fdb3e108350447ed9a3eccca4ad92900"
-    # artifact_path = "modelo_riesgos"
+    version = result.version
+    logger.info(f"Modelo registrado: {model_name}, versión: {version}")
 
-    # --- PARA OPTUNA ---
-    run_id = "973a34f3222649549ade2414b38876a3"
-    artifact_path = "modelo_optuna"
-
-    model_name = "modelo_riesgos_gradientboosting"
-
-    register_model(run_id, model_name, artifact_path)
-
-
+   
