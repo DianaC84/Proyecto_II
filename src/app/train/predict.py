@@ -16,15 +16,7 @@ def predict(model_name: str,
                   stage: str,
                   input_path: str,
                   output_path: str):
-    """
-    Realiza predicciones en batch usando el mejor modelo registrado en MLflow.
-
-    Args:
-        model_name (str): Nombre del modelo en MLflow Model Registry.
-        stage (str): Stage del modelo ("Staging" o "Production").
-        input_path (str): Ruta del archivo de datos de entrada (CSV o Excel).
-        output_path (str): Ruta donde se guardará el resultado con predicciones.
-    """
+    
     # 1️⃣ Cargar modelo desde MLflow Model Registry
     logger.info(f"Cargando modelo '{model_name}' en stage '{stage}' desde MLflow...")
     model_uri = f"models:/{model_name}/{stage}"

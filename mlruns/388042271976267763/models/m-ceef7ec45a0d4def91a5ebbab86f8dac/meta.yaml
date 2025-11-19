@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/models/m-ceef7ec45a0d4def91a5ebbab86f8dac/artifacts
+creation_timestamp: 1763526062746
+experiment_id: '388042271976267763'
+last_updated_timestamp: 1763526073386
+model_id: m-ceef7ec45a0d4def91a5ebbab86f8dac
+model_type: null
+name: modelo_gradient_boosting
+source_run_id: 046a797553ac4d15a7f757965ca8e1ea
+status: 2
+status_message: null

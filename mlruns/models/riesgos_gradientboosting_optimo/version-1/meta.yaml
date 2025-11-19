@@ -1,0 +1,15 @@
+creation_timestamp: 1763526244960
+current_stage: None
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1763526244960
+model_id: m-752ee49240404eb783319e79d22168e7
+name: riesgos_gradientboosting_optimo
+run_id: 4c6d87db42a74ecfa2ddc203a3a2046c
+run_link: null
+source: models:/m-752ee49240404eb783319e79d22168e7
+status: READY
+status_message: null
+storage_location: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/774293391385497317/models/m-752ee49240404eb783319e79d22168e7/artifacts
+user_id: null
+version: 1

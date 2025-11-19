@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/b4c189aa0bee496eb64d4527e460065c/artifacts
+end_time: 1763525849760
+entry_point_name: ''
+experiment_id: '388042271976267763'
+lifecycle_stage: active
+run_id: b4c189aa0bee496eb64d4527e460065c
+run_name: serious-cub-336
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763525849615
+status: 4
+tags: []
+user_id: crisa

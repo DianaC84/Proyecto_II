@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/046a797553ac4d15a7f757965ca8e1ea/artifacts
+end_time: 1763526073408
+entry_point_name: ''
+experiment_id: '388042271976267763'
+lifecycle_stage: active
+run_id: 046a797553ac4d15a7f757965ca8e1ea
+run_name: merciful-horse-493
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763526061661
+status: 3
+tags: []
+user_id: crisa

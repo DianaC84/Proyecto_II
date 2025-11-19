@@ -1,71 +1,133 @@
-import logging
-from pathlib import Path
-
 import pandas as pd
 import numpy as np
-
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, roc_auc_score
-from sklearn.ensemble import GradientBoostingClassifier
 import joblib
 
-from etl import load_raw, clean_data
-from feature_engineer import crear_materializado_30d
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import (
+    roc_auc_score, precision_recall_curve, confusion_matrix,
+    classification_report, f1_score, accuracy_score
+)
+from sklearn.ensemble import GradientBoostingClassifier
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# 1. CARGAR DATASET
+
+def cargar_dataset(ruta: str) -> pd.DataFrame:
+    print("Cargando dataset final con features...")
+    df = pd.read_excel(ruta)
+    print(f"Dataset cargado: {df.shape[0]} filas, {df.shape[1]} columnas.")
+    return df
 
 
-class Train:
+# 2. SELECCIONAR FEATURES DEFINIDOS (X_v2)
 
-    def __init__(self, df, target_column, model, test_size=0.2):
-        self.df = df
-        self.model = model
-        self.test_size = test_size
-          
-        self.target_column = "materializado_30d"
+def preparar_datos(df: pd.DataFrame):
 
-        self.features = [
-            "Causa_DS",
-            "AgenteGenerador_DS",
-            "Severidad_NUM",
-            "Año",
-            "valor_acumulado"
-        ]
-                
-        
-        # Solo categóricas dentro de tus features
-        self.categorical_features = df[self.features].select_dtypes(
-            include=['object', 'category']
-        ).columns.tolist()
+    columnas_features = [
+        "Causa_DS",
+        "AgenteGenerador_DS",
+        "Severidad_NUM",
+        "año",
+        "valor_acumulado"
+    ]
 
-    def train_test_split(self):
-        X = self.df[self.features]
-        y = self.df[self.target_column]
-        return train_test_split(X, y, test_size=self.test_size, random_state=42)
+    print("\nUsando las siguientes features:")
+    print(columnas_features)
 
-    def create_preprocessor(self):
-        preprocessor = ColumnTransformer(
-            transformers=[
-                ('cat', OneHotEncoder(handle_unknown='ignore'), self.categorical_features)
-            ],
-            remainder='passthrough'
-        )
-        return preprocessor
+    X = df[columnas_features]
+    y = df["materializado_30d"]
 
-    def create_pipeline_train(self):
-        pipeline = Pipeline(steps=[
-            ('preprocessor', self.create_preprocessor()),
-            ('classifier', self.model)
-        ])
-        return pipeline
+    return X, y
 
-    def train(self):
-        X_train, X_test, y_train, y_test = self.train_test_split()
-        pipeline = self.create_pipeline_train()
-        pipeline.fit(X_train, y_train)
-        return pipeline, X_train, X_test, y_train, y_test
+
+# 3. ENTRENAR MODELO
+
+def entrenar_modelo(X_train, y_train):
+
+    # ⭐ Hiperparámetros óptimos encontrados con Optuna
+    best_params = {
+        'n_estimators': 258,
+        'learning_rate': 0.10233634007162776,
+        'max_depth': 5,
+        'subsample': 0.9472556968322051,
+        'min_samples_split': 16,
+        'min_samples_leaf': 8
+    }
+
+    print("\nEntrenando modelo GradientBoosting con hiperparámetros óptimos...")
     
+    modelo = GradientBoostingClassifier(
+        **best_params,
+        random_state=42
+    )
+
+    modelo.fit(X_train, y_train)
+    print("Entrenamiento finalizado.")
+    return modelo
+
+
+# 4. CÁLCULO DEL UMBRAL ÓPTIMO
+
+def obtener_umbral_optimo(y_true, probs):
+    precision, recall, thresholds = precision_recall_curve(y_true, probs)
+    f1_scores = 2 * (precision * recall) / (precision + recall + 1e-10)
+    idx = np.argmax(f1_scores)
+    umbral = thresholds[idx]
+    return umbral, f1_scores[idx]
+
+
+# 5. EVALUACIÓN
+
+def evaluar_modelo(modelo, X_test, y_test):
+    probs = modelo.predict_proba(X_test)[:, 1]
+
+    umbral_optimo, best_f1 = obtener_umbral_optimo(y_test, probs)
+
+    y_pred = (probs >= umbral_optimo).astype(int)
+
+    print("\n========== RESULTADOS ==========\n")
+    print(f"Umbral óptimo (basado en F1): {umbral_optimo:.3f}")
+    print("\nMatriz de Confusión:")
+    print(confusion_matrix(y_test, y_pred))
+    print("\nReporte de Clasificación:")
+    print(classification_report(y_test, y_pred, digits=3))
+
+    auc = roc_auc_score(y_test, probs)
+    f1 = f1_score(y_test, y_pred)
+    acc = accuracy_score(y_test, y_pred)
+
+    print("\n📊 MÉTRICAS FINALES:")
+    print(f"AUC: {auc:.3f}")
+    print(f"F1-Score: {f1:.3f}")
+    print(f"Accuracy: {acc:.3f}")
+
+    return umbral_optimo, auc, f1, acc
+
+# 6. MAIN
+
+if __name__ == "__main__":
+
+    # 1) Cargar datos procesados
+    df = cargar_dataset("datos_features.xlsx")
+
+    # 2) Preparar dataset 
+    X, y = preparar_datos(df)
+
+    # 3) Train/test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
+
+    # 4) Entrenar modelo
+    modelo = entrenar_modelo(X_train, y_train)
+
+    # 5) Evaluación
+    umbral_optimo, auc, f1, acc = evaluar_modelo(modelo, X_test, y_test)
+
+    # 6) Guardar modelo y umbral
+    joblib.dump(modelo, "modelo_gradientboosting_optimo.pkl")
+    print("\n💾 Modelo guardado como 'modelo_gradientboosting_optimo.pkl'")
+
+    with open("umbral_optimo.txt", "w") as f:
+        f.write(str(umbral_optimo))
+
+    print("💾 Umbral óptimo guardado en 'umbral_optimo.txt'")
