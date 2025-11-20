@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/models/m-f8ed8fa76338422d8960c4cfda8cdd80/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.5.1
+model_id: m-f8ed8fa76338422d8960c4cfda8cdd80
+model_size_bytes: 774709
+model_uuid: m-f8ed8fa76338422d8960c4cfda8cdd80
+prompts: null
+run_id: fa3b280d7ab64731ad63963f2349efd9
+utc_time_created: '2025-11-20 02:01:44.356242'

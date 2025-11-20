@@ -1,0 +1,15 @@
+creation_timestamp: 1763603803421
+current_stage: None
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1763603803421
+model_id: m-a636a669d09f4cba98de48d624893e03
+name: modelo_gradientboosting_optimo
+run_id: 3b6f18898bdd42368eb7cb17820cbf7d
+run_link: null
+source: models:/m-a636a669d09f4cba98de48d624893e03
+status: READY
+status_message: null
+storage_location: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/models/m-a636a669d09f4cba98de48d624893e03/artifacts
+user_id: null
+version: 2

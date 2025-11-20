@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/crisa/Documents/repositorios/Proyecto_II/mlruns/388042271976267763/3b6f18898bdd42368eb7cb17820cbf7d/artifacts
+end_time: 1763603803519
+entry_point_name: ''
+experiment_id: '388042271976267763'
+lifecycle_stage: active
+run_id: 3b6f18898bdd42368eb7cb17820cbf7d
+run_name: RegistrarModelo
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763603795019
+status: 3
+tags: []
+user_id: crisa

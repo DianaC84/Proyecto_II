@@ -1,56 +1,56 @@
-import mlflow
-import mlflow.sklearn
+import pandas as pd
 import joblib
 import argparse
 import os
 
-
-def registrar_modelo(ruta_modelo: str, nombre_modelo: str):
-    print("\n=== REGISTRO DE MODELO EN MLFLOW ===")
-
-    # 1. Verificar que el archivo exista
+def cargar_modelo(ruta_modelo):
     if not os.path.exists(ruta_modelo):
-        raise FileNotFoundError(
-            f"❌ ERROR: No se encontró el archivo del modelo en la ruta: {ruta_modelo}"
-        )
+        raise FileNotFoundError(f"No se encontró el modelo en: {ruta_modelo}")
+    print(f"✔ Cargando modelo: {ruta_modelo}")
+    return joblib.load(ruta_modelo)
 
-    print(f"✔ Cargando modelo desde: {ruta_modelo}")
-    modelo = joblib.load(ruta_modelo)
+def cargar_datos(ruta_csv):
+    if not os.path.exists(ruta_csv):
+        raise FileNotFoundError(f"No se encontró el archivo: {ruta_csv}")
+    print(f"✔ Cargando datos: {ruta_csv}")
+    return pd.read_csv(ruta_csv)
 
-    # 2. Configurar experimento
-    experiment_name = "riesgos_gradient_boosting"
-    mlflow.set_experiment(experiment_name)
+def preparar_features(df):
+    required = ['Causa_DS', 'AgenteGenerador_DS', 'Severidad_NUM', 'año', 'valor_acumulado']
 
-    with mlflow.start_run(run_name="RegistrarModelo"):
-        print("✔ Registrando modelo en MLflow...")
+    if not all(col in df.columns for col in required):
+        missing = [c for c in required if c not in df.columns]
+        raise ValueError(f"❌ Faltan columnas necesarias: {missing}")
 
-        mlflow.sklearn.log_model(
-            sk_model=modelo,
-            artifact_path="modelo_gradientboosting",
-            registered_model_name=nombre_modelo
-        )
+    print("✔ Features preparados")
+    return df[required]
 
-        print(f"\n📦 Modelo registrado en el Model Registry como: {nombre_modelo}")
-        print("🎉 ¡Registro completado exitosamente!\n")
+def generar_predicciones(modelo, X):
+    print("✔ Generando predicciones...")
+    probs = modelo.predict_proba(X)[:, 1]
+    preds = (probs > 0.5).astype(int)
+    return preds, probs
 
+def guardar_salida(df, preds, probs, ruta_salida):
+    df_out = df.copy()
+    df_out["probabilidad"] = probs
+    df_out["prediccion"] = preds
+    df_out.to_csv(ruta_salida, index=False)
+    print(f"✔ Archivo generado: {ruta_salida}")
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Registrar modelo en MLflow")
-
-    parser.add_argument(
-        "--ruta_modelo",
-        type=str,
-        default="modelo_gradientboosting_optimo.pkl",   # ← Nombre correcto
-        help="Ruta del archivo .pkl del modelo a registrar"
-    )
-
-    parser.add_argument(
-        "--nombre_modelo",
-        type=str,
-        default="riesgos_gradientboosting_optimo",
-        help="Nombre del modelo en el MLflow Model Registry"
-    )
+def main():
+    parser = argparse.ArgumentParser(description="Batch prediction para riesgos")
+    parser.add_argument("--modelo", type=str, default="modelo_gradientboosting_optimo.pkl")
+    parser.add_argument("--input", type=str, required=True)
+    parser.add_argument("--output", type=str, default="predicciones.csv")
 
     args = parser.parse_args()
 
-    registrar_modelo(args.ruta_modelo, args.nombre_modelo)
+    modelo = cargar_modelo(args.modelo)
+    df = cargar_datos(args.input)
+    X = preparar_features(df)
+    preds, probs = generar_predicciones(modelo, X)
+    guardar_salida(df, preds, probs, args.output)
+
+if __name__ == "__main__":
+    main()

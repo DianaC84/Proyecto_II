@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import joblib
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
@@ -131,3 +132,28 @@ if __name__ == "__main__":
         f.write(str(umbral_optimo))
 
     print("💾 Umbral óptimo guardado en 'umbral_optimo.txt'")
+
+    #7) Guardar predicciones del test ===
+
+    print("\n💾 Guardando predicciones del conjunto de test...")
+
+    # Crear carpeta si no existe
+    os.makedirs("datos/output", exist_ok=True)
+
+    # Obtener probabilidades y predicciones
+    probs_test = modelo.predict_proba(X_test)[:, 1]
+    y_pred_test = (probs_test >= umbral_optimo).astype(int)
+
+    # Construir DataFrame de salida
+    df_pred = pd.DataFrame({
+        "Riesgo_CD": X_test.index,
+        "Prob_Materializacion": probs_test,
+        "Predicho_Materializado": y_pred_test,
+        "Real_Materializado": y_test.values
+    })
+
+    # Guardar archivo CSV
+    salida = "datos/output/predicciones_test.csv"
+    df_pred.to_csv(salida, index=False)
+
+    print(f"📄 Predicciones guardadas en: {salida}")
