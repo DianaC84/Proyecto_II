@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
+import os
+import joblib
 
 
 # 1. Crear variables de materialización
@@ -97,6 +99,9 @@ def codificar_categorias(df: pd.DataFrame):
         "Causa_DS": le_causa,
         "AgenteGenerador_DS": le_agente
     }
+    os.makedirs("encoders", exist_ok=True)
+    joblib.dump(encoders["Causa_DS"], "encoders/encoder_Causa_DS.pkl")
+    joblib.dump(encoders["AgenteGenerador_DS"], "encoders/encoder_AgenteGenerador_DS.pkl")
 
     return df, encoders
 
